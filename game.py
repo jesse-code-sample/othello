@@ -32,7 +32,7 @@ class Piece(IntEnum):
     @staticmethod
     def from_player(player: Player) -> 'Piece':
         """
-        Converts a Player into the corresponding Piece.
+        Get the corresponding Piece for a Player.
 
         Args:
             player (Player): The player.
@@ -90,6 +90,7 @@ class Game:
         self.board[row][col] = piece
         for dx, dy, end_x, end_y in self._get_endpoints(player, row, col):
             x, y = row + dx, col + dy
+            # Flip all pieces between the newly placed piece and the endpoint
             while (x, y) != (end_x, end_y):
                 self.board[x][y] = piece
                 x += dx
@@ -146,11 +147,14 @@ class Game:
         for dx, dy in self.DIRS:
             x, y = row + dx, col + dy
             sandwiched = False
+            # Increment while there are opponent pieces in the line
             while (self.valid_coordinate(x, y) and
                    self.board[x][y].value == player.opponent().value):
                 sandwiched = True
                 x += dx
                 y += dy
+            # There must be at least one opponent piece in the line, and the
+            # endpoint must be a valid coordinate containing the player's piece
             if (sandwiched and self.valid_coordinate(x, y) and
                     self.board[x][y].value == player.value):
                 endpoints.append((dx, dy, x, y))
@@ -201,15 +205,15 @@ class Game:
 
     def print_grid(self) -> None:
         """
-        Prints the current board state to the console in a human-readable format.
+        Prints the current board state in a human-readable format.
         """
         print("\n    A   B   C   D   E   F   G   H\n")
-        for i, row in enumerate(self.board):
-            print(f"{i + 1}  ", end="")
-            for cell in row:
-                if cell == Piece.NO_PIECE:
+        for row in range(self.BOARD_SIZE):
+            print(f"{row + 1}  ", end="")
+            for col in range(self.BOARD_SIZE):
+                if self.board[row][col] == Piece.NO_PIECE:
                     print("--- ", end="")
-                elif cell == Piece.BLACK:
+                elif self.board[row][col] == Piece.BLACK:
                     print(" B  ", end="")
                 else:
                     print(" W  ", end="")

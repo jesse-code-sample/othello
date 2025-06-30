@@ -87,6 +87,7 @@ class MinimaxBot(ABC):
             if comparator(cur_eval, best_eval):
                 best_eval = cur_eval
                 best_move = (row, col)
+            # Alpha-beta pruning
             if player == Player.BLACK:
                 alpha = max(alpha, cur_eval)
             else:
