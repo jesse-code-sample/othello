@@ -127,10 +127,10 @@ class CornersBot(GreedyBot):
         return self.coin_score(game) + 25 * self.corners_score(game)
 
 
-def play_game(black_bot, white_bot, print_moves=False):
+def play_game(black_bot: MinimaxBot, white_bot: MinimaxBot,
+              print_moves: bool = False) -> Tuple[int, int]:
     """
-    Minimax algorithm with alpha-beta pruning. Maximizes the evaluation for
-    the BLACK player, and minimizes the evaluation for the WHITE player.
+    Play an Othello game between the two provided bots.
 
     Args:
         black_bot (MinimaxBot): The bot playing black pieces.
@@ -139,7 +139,8 @@ def play_game(black_bot, white_bot, print_moves=False):
                             by the bots.
 
     Returns:
-        Tuple[int, Optional[Tuple[int, int]]]: Evaluation score and move.
+        Tuple[int, int]: The number of black pieces and white pieces at the end
+                         of the game.
     """
     game = Game()
     if print_moves:
