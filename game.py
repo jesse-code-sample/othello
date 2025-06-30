@@ -66,10 +66,10 @@ class Game:
         else:
             self.board = [[Piece.NO_PIECE] * self.BOARD_SIZE for _ in
                           range(self.BOARD_SIZE)]
-            self.board[3][3] = Piece.BLACK
-            self.board[4][4] = Piece.BLACK
-            self.board[3][4] = Piece.WHITE
-            self.board[4][3] = Piece.WHITE
+            self.board[3][3] = Piece.WHITE
+            self.board[4][4] = Piece.WHITE
+            self.board[3][4] = Piece.BLACK
+            self.board[4][3] = Piece.BLACK
 
     def place_piece(self, player: Player, row: int, col: int) -> None:
         """
