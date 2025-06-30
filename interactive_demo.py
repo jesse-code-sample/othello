@@ -3,7 +3,7 @@ from game import Game, Player
 
 
 def get_alpha_notation(row, col):
-    return f'{row + 1}{chr(col + ord('A'))}'
+    return f'{row + 1}{chr(col + ord("A"))}'
 
 
 if __name__ == "__main__":
